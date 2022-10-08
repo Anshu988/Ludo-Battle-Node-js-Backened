@@ -1,0 +1,66 @@
+    {{> header}}
+   <!-- Page Container START -->
+            <div class="page-container">
+                
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                               <div class="page-header">
+                                  <h2 class="header-title">Manage User</h2>
+                                    <div class="header-sub-title">
+                                       <nav class="breadcrumb breadcrumb-dash">
+                                        <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>                               
+                                        </nav>
+                                    </div>
+                               </div> 
+                            </div>
+                             
+                        </div>
+                    </div>
+
+                    
+                    
+                  
+                    <div class="card">
+                        <div class="card-body">                            
+                            <table class="table">
+                                <thead >
+                                    <tr class="text-center" >
+                                        <th scope="col">S. No.</th>
+                                        <th scope="col">User ID</th>
+                                        <th scope="col">  Name.</th>
+                                        <th scope="col">Mobile</th>
+                                        <th scope="col" class="pb-4">Wallet</th>
+                                        <th scope="col">Refer Code</th>
+                                        <th scope="col" class="pb-4">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each users}}
+                                    <tr class="text-center" >
+                                        <td>{{@index }}</td>
+                                        <td>{{this.UserId}}</td>
+                                          <td>{{this.name}}</td>
+                                        <td>{{this.phone}}</td>
+                                        <td>{{this.CurrentBalance}}</td>
+                                        <td>{{this.MyRefCode}}</td>
+                                        
+                                        <td >Done</td>
+                                    </tr>
+                                     {{/each}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+                {{> footer}}
+                
+                
+            
+              
+              

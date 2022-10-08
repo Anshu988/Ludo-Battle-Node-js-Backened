@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Ludo King - Admin Dashboard Template</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/images/logo/favicon.png">
+
+    <!-- page css -->
+
+    <!-- Core css -->
+    <link href="/css/app.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="app">
+        <div class="container-fluid p-h-0 p-v-20 bg full-height d-flex" style="background-image: url('assets/images/others/login-3.png')">
+            <div class="d-flex flex-column justify-content-between w-100">
+                <div class="container d-flex h-100">
+                    <div class="row align-items-center w-100">
+                        <div class="col-md-7 col-lg-5 m-h-auto">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-between m-b-30">
+                                       <h2 class="pt-4 pl-4 text-left"><strong>Ludo King</strong></h2>
+                                        <h2 class="m-b-0">Sign In</h2>
+                                    </div>
+                                    <form id="form" method="post">
+                                        <div class="form-group">
+                                            <label class="font-weight-semibold" for="userName">Username:</label>
+                                            <div class="input-affix">
+                                                <i class="prefix-icon anticon anticon-user"></i>
+                                                <input type="text" name="email"class="form-control" id="userName" placeholder="Username">
+                                            </div>
+                                        </div>
+                                        <div class="form-group border">
+                                            <label class="font-weight-semibold" for="password">Password:</label>
+                                            <a class="float-right font-size-13 text-muted" href="#">Forget Password?</a>
+                                            <div class="input-affix m-b-10">
+                                                <i class="prefix-icon anticon anticon-lock"></i>
+                                                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                               
+                                                <button type="submit" class="btn btn-primary"  >Sign In</button>
+                                            </div>
+                                        </div>
+                                        <div id="msg"></div>
+                                       
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-none d-md-flex p-h-40 justify-content-center">
+                    <span class="text-center">© 2022 Ludo King</span>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    <!-- Core Vendors JS -->
+    <script src="/js/vendors.min.js"></script>
+
+    <!-- page js -->
+
+    <!-- Core JS -->
+    <script src="/js/app.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function(){
+			$( "#form" ).submit(function(event) {
+               
+				event.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '/admin/login_post',
+					data: $('#form').serialize(),
+					dataType: "json",
+					success: function(response){
+						//alert("a");
+						//console.log(response.Success);
+						$('#form')[0].reset();
+                                  var msg=  `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>`+ response.Success+` </strong >  
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>`;
+                                       
+						document.getElementById("msg").innerHTML=msg;
+         					//ADD THIS CODE
+         					setTimeout(function(){
+         						document.getElementById("msg").innerHTML="";
+         					},5000);
+         					if (response.Success=="Success!") {
+         						
+                                window.location.href="http://localhost:3000/admin/dashboard"
+                                
+         					};
+         				},
+         				error: function() {
+         				}
+         			})
+			});
+		});
+	</script>
+</body>
+</html>

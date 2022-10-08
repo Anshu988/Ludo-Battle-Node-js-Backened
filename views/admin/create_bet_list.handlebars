@@ -1,0 +1,149 @@
+            {{> header}}
+            <!-- Page Container START -->
+            <div class="page-container">
+                
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                               <div class="page-header">
+                                  <h2 class="header-title">Add Site Form</h2>
+                                    <div class="header-sub-title">
+                                       <nav class="breadcrumb breadcrumb-dash">
+                                        <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>                               
+                                        </nav>
+                                    </div>
+                               </div> 
+                            </div>
+                             <div class="col-md-6 text-right">
+                                <a href=""><button type="button" class="btn btn-primary text-end">New</button></a> 
+                            </div>
+                        </div>
+                    </div>
+                  
+                 
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <div class="m-t-25" >
+                                         <div id="msg"></div>
+                                        <form id="form" method="post">
+                                              <div class="row pt-3">
+                                                <div class="col">
+                                                    <label for="exampleInputEmail1">Game Mode <span style="color:red">*</span></label>
+                                                    <div class="form-group">
+                                                        <select class="form-control game_mode" id="exampleFormControlSelect1" required="" name="game_mode_id">
+                                                          <option>Select Game Mode </option>
+                                                           {{#each gamemode}}
+                                                          <option value="{{this.code}}" data-id="{{this.player_type}}">{{this.title}}</option>
+                                                           {{/each}}
+                                                         
+                                                      </select>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="exampleInputEmail1">Bet amount</label>
+                                                    <input type="text" class="form-control" placeholder="Enter Bet amount.." name="amount" >
+                                            </div>
+                                           </div>
+                                           <div id="rank_amount">
+
+                                           </div>
+                                            
+                                            
+                                         
+                                        <div class="row pt-3">
+                                           <div class="col ">
+                                             <a > <button type="submit" class="btn btn-primary btn-lg">Submit</button></a>
+                                            </div>                                               
+                                        </div>
+                                           
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                       
+                    </div> 
+                </div>
+
+                <!-- Content Wrapper END -->
+
+
+
+                   {{> footer}}
+                
+
+            </div>
+            <!-- Page Container END -->
+
+    <script >
+        $('.game_mode').on('change', function() {
+        var dataid = $(".game_mode option:selected").attr('data-id');
+        
+        var val = this.value;
+        var html='';
+        for(let i=1; i<= dataid; i++){
+            
+            html +=` <div class="row">
+                        <div class="col">
+                            <label for="exampleInputEmail1">`+i+` Rank Amount</label>
+                            <input type="text" name="rank_winning_amount[]"class="form-control rank_winning_amount" id="rank_winning_amount"placeholder="Enter `+i+` Rank Amount.." name="amount" >
+                    </div>
+                    </div>`;
+            }
+        $('#rank_amount').html(html);
+        
+        });
+    </script>
+            
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function(){
+			$( "#form" ).submit(function(event) {
+               
+				event.preventDefault();
+                 
+                var rank =$("#form").serialize();
+                 
+                console.log(rank);
+				$.ajax({
+					type: 'POST',
+					url: '/admin/Bet_deduction_create',
+					data:$("#form").serialize(),
+					dataType: "json",
+					success: function(response){
+						//alert("a");
+						//console.log(response.Success);
+						$('#form')[0].reset();
+                                  var msg=  `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>`+ response.sms+` </strong >  
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>`;
+                                       
+						document.getElementById("msg").innerHTML=msg;
+         					//ADD THIS CODE
+         					setTimeout(function(){
+         						document.getElementById("msg").innerHTML="";
+         					},5000);
+         					if (response.Success=="Success!") {
+         						
+                                window.location.href="http://localhost:3000/admin/dashboard"
+                                
+         					};
+         				},
+         				error: function() {
+         				}
+         			})
+			});
+		});
+	</script>

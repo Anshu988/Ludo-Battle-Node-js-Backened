@@ -1,0 +1,62 @@
+    {{> header}}
+   <!-- Page Container START -->
+            <div class="page-container">
+                
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                               <div class="page-header">
+                                  <h2 class="header-title">Manage Game Mode</h2>
+                                    <div class="header-sub-title">
+                                       <nav class="breadcrumb breadcrumb-dash">
+                                        <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>                               
+                                        </nav>
+                                    </div>
+                               </div> 
+                            </div>
+                             
+                        </div>
+                    </div>
+
+                    
+                    
+                  
+                    <div class="card">
+                        <div class="card-body">                            
+                            <table class="table">
+                                <thead >
+                                    <tr class="text-center" >
+                                        <th scope="col">S. No.</th>
+                                        <th scope="col">Title.</th>
+                                        <th scope="col">Player Type</th>
+                                        <th scope="col" class="pb-4">Status</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each gamemode}}
+                                    <tr class="text-center" >
+                                        <td>1</td>
+                                        <td>{{this.title}}</td>
+                                        <td>{{this.player_type}}</td>
+                                        <td>{{#if this.status}}Active {{else}} Deactive {{/if}}</td>
+                                        {{!-- <td>{{this.MyRefCode}}</td> --}}
+                                         
+                                    </tr>
+                                    
+                                     {{/each}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+                {{> footer}}
+                
+                
+            
+              
+              
